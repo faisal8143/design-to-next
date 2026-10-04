@@ -1,0 +1,85 @@
+<template>
+    <lightning-tabset>
+        <lightning-tab label="Import">
+            <div class="slds-p-around_small">
+                <lightning-radio-group
+                    name="source"
+                    label="Import from"
+                    options={sourceOptions}
+                    value={source}
+                    type="button"
+                    onchange={handleSource}>
+                </lightning-radio-group>
+                <p class="slds-text-body_small slds-text-color_weak slds-m-vertical_x-small">{hint}</p>
+                <lightning-textarea
+                    class="source-text"
+                    label="Design source"
+                    variant="label-hidden"
+                    value={input}
+                    onchange={handleInput}
+                    placeholder="Paste here">
+                </lightning-textarea>
+                <div class="slds-m-top_x-small">
+                    <lightning-button variant="brand" label="Convert" onclick={handleConvert}></lightning-button>
+                </div>
+
+                <template lwc:if={errorMessage}>
+                    <div class="note note_error slds-m-top_small" role="alert">{errorMessage}</div>
+                </template>
+                <template lwc:if={successMessage}>
+                    <div class="note note_success slds-m-top_small" role="status">{successMessage}</div>
+                </template>
+
+                <template lwc:if={hasResult}>
+                    <div class="summary slds-m-top_medium">
+                        <span class="score">{scoreLabel}</span>
+                        <span class="slds-text-body_regular">{summary}</span>
+                    </div>
+                    <template for:each={notes} for:item="n">
+                        <div key={n.key} class={n.cls}><b>{n.label}</b> {n.text}</div>
+                    </template>
+
+                    <div class="tree slds-m-top_small">
+                        <template for:each={sections} for:item="s">
+                            <div key={s.key} class="section">
+                                <div class="section-title">{s.title}</div>
+                                <div class="columns">
+                                    <template for:each={s.columns} for:item="c">
+                                        <div key={c.key} class="column">
+                                            <template lwc:if={c.label}><div class="column-label">{c.label}</div></template>
+                                            <template for:each={c.blocks} for:item="b">
+                                                <div key={b.key} class={b.cls}><span class="block-type">{b.type}</span> {b.text}</div>
+                                            </template>
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+
+                    <div class="slds-m-top_medium">
+                        <template lwc:if={confirming}>
+                            <p class="slds-m-bottom_x-small">This replaces everything in the email with the imported blocks. Try it on a test email first.</p>
+                        </template>
+                        <lightning-button-group>
+                            <lightning-button variant="brand" label={applyLabel} onclick={handleApply} disabled={applyDisabled}></lightning-button>
+                            <template lwc:if={confirming}>
+                                <lightning-button label="Cancel" onclick={handleCancel}></lightning-button>
+                            </template>
+                        </lightning-button-group>
+                    </div>
+                </template>
+            </div>
+        </lightning-tab>
+
+        <lightning-tab label="Inspect">
+            <div class="slds-p-around_small">
+                <p class="slds-text-body_small slds-text-color_weak slds-m-bottom_x-small">
+                    The builder's own JSON for this email. Build a test email with one of each component (image, button, divider, list, HTML), then copy this and share it to confirm the import mapping.
+                </p>
+                <lightning-button label={copyLabel} onclick={handleCopy}></lightning-button>
+                <lightning-textarea class="inspect-text slds-m-top_x-small" label="Email JSON" variant="label-hidden" readonly value={inspectJson}></lightning-textarea>
+            </div>
+        </lightning-tab>
+    </lightning-tabset>
+</template>

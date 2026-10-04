@@ -1,0 +1,74 @@
+/* lightning-textarea styles its own field; these set the outer spacing */
+.inspect-text,
+.source-text {
+    display: block;
+}
+.summary {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+}
+.score {
+    font-weight: 700;
+    padding: 2px 10px;
+    border-radius: 999px;
+    background: #e2f1f0;
+    color: #0f6e6e;
+}
+.note {
+    padding: 6px 10px;
+    border-radius: 4px;
+    margin-top: 6px;
+    font-size: 12px;
+}
+.note_warn { background: #fff6db; color: #6b4a00; }
+.note_fallback { background: #fff1dc; color: #7a4204; }
+.note_error { background: #fdecea; color: #a01b12; }
+.note_success { background: #e7f6ec; color: #155f2a; }
+.section {
+    border: 1px solid #d8dde6;
+    border-radius: 4px;
+    margin-bottom: 8px;
+}
+.section-title {
+    padding: 4px 8px;
+    background: #f3f3f3;
+    font-weight: 600;
+    font-size: 12px;
+}
+.columns {
+    display: flex;
+    gap: 6px;
+    padding: 6px;
+}
+.column {
+    flex: 1 1 0;
+    min-width: 0;
+    border: 1px dashed #c9c9c9;
+    border-radius: 3px;
+    padding: 4px;
+}
+.column-label {
+    font-size: 10px;
+    color: #7a3fb0;
+    font-weight: 700;
+}
+.block {
+    font-size: 12px;
+    padding: 2px 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.block_fallback {
+    background: #fff1dc;
+    color: #7a4204;
+}
+.block-type {
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 10px;
+    margin-right: 4px;
+    color: #0b63c5;
+}
